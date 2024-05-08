@@ -1,0 +1,22 @@
+plugins {
+    id 'java'
+    id "edu.sc.seis.macAppBundle" version "2.3.1"
+}
+
+configurations.default.canBeResolved=true
+
+macAppBundle {
+    appName = 'SimpleTimer'
+    mainClassName = 'org.example.Main'
+    appStyle = 'universalJavaApplicationStub'
+
+    bundleJRE = false
+}
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
+}
+
+group = 'org.example'
+version = '1.0-SNAPSHOT'
