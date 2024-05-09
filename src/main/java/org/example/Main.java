@@ -1,20 +1,31 @@
 package org.example;
 
 
-import javax.swing.*;
-import java.awt.*;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.SwingUtilities;
+import javax.swing.Timer;
+import java.awt.FlowLayout;
+import java.awt.Font;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 public class Main extends JFrame {
     private final JButton startButton;
-    private Timer timer;
     private final JLabel timeLabel;
+    private Timer timer;
+
     private long startTime;
     private long endTime;
     private boolean timerRunning;
+
     private int initialX;
     private int initialY;
+
+    private long seconds;
+    private long minutes;
+    private long hours;
 
     public Main() {
         setSize(140, 35);
@@ -74,9 +85,17 @@ public class Main extends JFrame {
     }
 
     private void updateTimer(long elapsedTime) {
-        long seconds = (elapsedTime / 1000) % 60;
-        long minutes = (elapsedTime / (1000 * 60)) % 60;
-        long hours = (elapsedTime / (1000 * 60 * 60)) % 24;
+        if (seconds != 59) {
+            ++seconds;
+        } else {
+            seconds = (elapsedTime / 1000) % 60;
+            if (minutes != 59) {
+                ++minutes;
+            } else {
+                minutes = 0;
+                ++hours;
+            }
+        }
 
         String timeString = String.format("%02d:%02d:%02d", hours, minutes, seconds);
         timeLabel.setText(timeString);
